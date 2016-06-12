@@ -1,0 +1,1 @@
+Created this program to understand the fstream library and how to input/output to files, also to understand how password protection and login access/rejection works. 

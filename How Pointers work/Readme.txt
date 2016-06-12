@@ -1,0 +1,1 @@
+Created this program to understand pointers and how they change what we look at, also to understand infix and postfix.

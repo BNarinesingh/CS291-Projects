@@ -1,0 +1,179 @@
+//Assignment 4.................................................................................................
+//CS291 LinkedStack Copyright (c) 2015 Barindra Narinesingh. All rights reserved.
+
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+//templates would not work with the code provided by the slides and the book So I 
+// used the format provided from the slides with some online references for guidance
+
+template <typename E>
+class LinkedStack {
+
+public:
+
+	LinkedStack() { head = 0; N = 0; }
+	~LinkedStack() { while (!empty()) { pop(); } }
+	int size() const { return N; };
+	bool empty() { return head == 0; }
+	E top() {
+		if (head == 0) return 0;	//if the top is empty return 0
+		return head->elem;			//otherwise return the top element
+	}
+	void push(E e) { ++N; head = new Node(e, head); } //push down a new top element
+	E pop();
+
+private:
+	int N;
+	// Online showed that it was possible to define a class inside private, so i tried it.
+	class Node
+	{
+	public:
+		E elem;
+		Node *next;
+		Node(E e, Node *n = 0) {
+			elem = e;
+			next = n;
+		};
+	};
+
+	Node *head;
+private:
+
+};
+
+template <typename E>
+E LinkedStack<E>::pop() {
+	if (head == 0) return 0;
+
+	Node *old_head = head;
+	head = head->next;
+	E topitem = old_head->elem;
+	delete old_head;
+	--N;
+	return topitem;
+};
+
+int main() {
+
+	// Make a stack of integers.
+	LinkedStack<int> intStack1, intStack2;
+	int n;
+
+	cout << "Testing out the linked list stacks" << endl << endl;
+
+	//Testing the pushing and poping functions
+
+
+	cout << "stack 1 looks like top=  0]" << endl;
+	cout << "stack 2 looks like  top=  0]" << endl;
+	cout << "stack one top = " << intStack1.top() << " " << endl;
+	cout << "stack two top = " << intStack2.top() << " " << endl << endl;
+	cout << "0 means empty for these cases" << endl;
+
+	cout << "Pushing stuff into the stacks." << endl;
+
+	for (int x = 1; x < 5; x++) {
+		intStack1.push(x);
+		intStack2.push(2);
+	}
+	intStack2.pop();
+	intStack2.push(4);
+
+	cout << "stack 1 looks like top= 4 3 2 1 0]" << endl
+		<< "stack 2 looks like  top= 4 2 2 2 0]" << endl;
+
+	cout << "Does number of elements in stack 1 match stack 2?";
+	if (intStack1.size() == intStack2.size())
+		cout << " Yes they match" << endl;
+	else
+		cout << " No their sizes are not the same" << endl;
+
+	cout << "Are the elements in stack 1 the same as stack 2?";
+
+	bool flag = true;
+	do {
+
+		if (intStack1.top() == intStack2.top()) {
+			intStack1.pop();
+			intStack2.pop();
+		}
+		
+		else if (intStack1.empty() && intStack2.empty()){	
+			bool flag = false;
+			cout << " Yes their elements are the same " << endl << endl;;
+		}
+		
+		else{
+			cout << " No their elements are not the same " << endl;
+			flag = false;
+		}
+	
+	} while (flag != false);
+	
+//compare two different type of stacks......................................................................
+
+	LinkedStack<char> stringStack1;
+	
+	
+		stringStack1.push('k');
+		stringStack1.push('c');
+		stringStack1.push('a');
+		stringStack1.push('t');
+		stringStack1.push('s');
+
+	cout << endl<<endl;
+
+	for (int x = 1; x < 5; x++) {
+		intStack1.push(x);
+	}
+
+	cout << "stack 1 looks like top= 4 3 2 1 0]" << endl;
+	cout << "string 1 looks like top= s t a c k 0 ]" << endl;
+	cout << "Does number of elements in stack 1 match string Stack 1?";
+	if (intStack1.size() == stringStack1.size())
+		cout << " Yes they match" << endl;
+	else
+		cout << " No their sizes are not the same" << endl;
+
+	cout << "Are the elements in stack 1 the same as stack 2?" << endl;;
+
+	bool flag2 = true;
+	do {
+		char x = stringStack1.top();		//very tricky, i didn't know how to do this, == overload was not working
+		if (intStack1.top() == int(x)) {	//had to convert char to int then compare
+			intStack1.pop();				//I tried to make a function with template to call and compare two stacks but it 
+			stringStack1.pop();				//glitch or freezed when i send two stacks of different types
+		}
+
+		else if (intStack1.empty() && stringStack1.empty()) {
+			bool flag2 = false;
+			cout << "Yes their elements are the same " << endl;
+		}
+
+		else {
+			cout << "No their elements are not the same " << endl;
+			flag2 = false;
+		}
+
+	} while (flag2 != false);
+
+	
+	
+
+
+
+
+
+
+
+
+
+	cout << "\nEnd of Program " << endl << endl;
+	system("pause");
+	return 0;
+
+}
+

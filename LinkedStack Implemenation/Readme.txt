@@ -1,0 +1,1 @@
+Created this program to understand how a implemented linked list works.

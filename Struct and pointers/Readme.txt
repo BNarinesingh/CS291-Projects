@@ -1,0 +1,1 @@
+Created this program to understand how Struct worked as well as how pointers are used with it.

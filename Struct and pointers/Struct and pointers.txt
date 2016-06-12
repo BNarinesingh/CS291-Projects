@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+struct partsType {				
+	string partName;
+	int partNum;
+	double price;
+	int quantitiesInStock;
+
+};
+
+int main() {
+
+	partsType* arr[100];			
+
+	for (int x = 0; x <= 100; x++) {
+		arr[x] = new partsType;
+		arr[x]->partName = " Null";
+		arr[x]->partNum = -1;
+		arr[x]->price = 0.0;
+		arr[x]->quantitiesInStock = 0;
+	}
+
+		cout << "partName should be Null = " << arr[1]->partName << endl;
+		cout << "partNum should be -1 = " << arr[1]->partNum<<endl;
+		cout << "price should be 0.0 = " << arr[1]->price<<endl;
+		cout << "quantitiesInStock should be 0 = " << arr[1]->quantitiesInStock<<endl;
+
+	for (int x = 0; x <= 100; x++) {
+			delete	arr[x];
+	}
+		
+
+		cout << "" << endl;
+	system("pause");
+	return 0;
+
+}

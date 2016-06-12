@@ -1,0 +1,193 @@
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+class lineType {
+
+public:
+	lineType();
+	lineType(const int& ca, const int& cb, const int& cc);
+	void verticleTest();
+	void horizontalTest();
+	void slope();
+	void parallel(float& sl1, float& sl2);
+	void perpendicular(float& sl1, float& sl2);
+	void intersection(int da, int db, int dc, int da1, int db1, int dc1);
+	float slow;
+	int a, b, c;
+
+private:	// i was going to put a, b, c private but it would make the code much longer than needed.
+
+
+};
+
+lineType::lineType() {
+	a = 0;
+	b = 0;
+	c = 0;
+	slow = 0;
+}
+lineType::lineType(const int& ca, const int& cb, const int& cc) {
+
+	a = ca;
+	b = cb;
+	c = cc;
+
+	if (b != 0) {
+		slow = (float)a / b;
+		slow = -slow;
+	}
+	else
+		slow = 0;
+}
+
+void lineType::verticleTest() {
+	if (b != 0)
+		cout << " it passes the verticle line test " << endl;
+	else
+		cout << " it fails the verticle line test " << endl;
+}
+
+void lineType::horizontalTest() {
+	if (a != 0)
+		cout << " it passes the horizontal line test " << endl;
+	else
+		cout << " it fails the verticle line test " << endl;
+}
+
+void lineType::slope() {
+
+	cout << " The slope is : " << slow << endl;		//returns slope
+}
+
+void lineType::parallel(float& sl1, float& sl2) {
+	if (sl1 == sl2)
+		cout << " Lines are parallel " << endl;
+	else
+		cout << " Lines are not parallel " << endl;
+
+
+
+}
+
+void lineType::perpendicular(float& sl1, float& sl2) {
+	float holder;
+	holder = sl1*sl2;		// holder = -1 if lines are perpendicular
+
+	if (sl1 != sl2)
+		cout << " Lines intersect " << endl << endl;
+	else
+		cout << " " << endl << endl;
+
+	if (holder = -1)
+		cout << " Lines are perpendicular " << endl << endl;
+	else
+		cout << " Lines are not perpendicular " << endl << endl;
+
+
+}
+
+
+void lineType::intersection(int da, int db, int dc, int da1, int db1, int dc1) {
+	// Sends both ax+by+c=0 for eq1 and eq2
+	// da+db+dc=0 and da1+db1+dc1=0
+
+	double x1, y1, c1, x2, y2, c2;		// created new variables to move around easier.
+	x1 = da;
+	y1 = db;
+	c1 = dc;
+	x2 = da1;
+	y2 = db1;
+	c2 = dc1;
+
+	x1 = (x1 / y1);
+	x1 = -x1;
+	c1 = (c1 / y1);
+	c1 = -c1;
+	y1 = 1;						// sets equation in form of by=ax+c
+
+	x2 = (x2 / y2);
+	x2 = -x2;
+	c2 = (c2 / y2);
+	c2 = -c2;
+	y2 = 1;					// sets equation in form of by=ax+c
+
+							// equations are now x1+c1=y1 and x2+c2=y2, since y1=1 and y2=1 we can do: x1+c1=x2+c2
+
+	x1 = x1 - x2;
+
+	c2 = c2 - c1;
+
+	// Now we have the equation (x1)x=(c2)c since dc represents a whole number we can set the left side equal 
+	// to it.
+
+	double xholder;
+	double yholder;
+
+	xholder = c2;
+	xholder = (double)(xholder / x1);		// gets x value via x=c
+
+
+											// now we plug in x into equation and solve for y. ax+by+c=0
+
+	yholder = da;
+	yholder = yholder + dc;
+
+	// now we have by+x=0, where yholder is the x
+
+	yholder = -(yholder);
+	yholder = yholder / db;
+
+	cout << "\nThe intersection point should be (" << xholder << "," << yholder << ")" << endl;
+
+}
+
+int main() {
+
+	lineType();
+
+	int d, e, f, d1, e1, f1; //I can turn these into two arrays to be passed, left as is due to easier as is
+
+	cout << "Please enter a b and c coeffecients for the equation 1: ax+by+c=0" << endl << endl;
+	cin >> d >> e >> f;
+
+	lineType line1(d, e, f);
+
+	cout << " Your line is : " << d << "x+" << e << "y+" << f << endl;
+
+	line1.verticleTest();
+	line1.horizontalTest();
+	line1.slope();
+
+	cout << "\n Please enter a b and c coeffecients for the equation 2:  ax+by+c=0" << endl << endl;
+	cin >> d1 >> e1 >> f1;
+
+	lineType line2(d1, e1, f1);
+
+	cout << " Your line is : " << d1 << "x+" << e1 << "y+" << f1 << endl;
+
+
+
+	line2.verticleTest();
+	line2.horizontalTest();
+	line2.slope();
+
+	cout << " " << endl << endl << endl;
+
+	line1.parallel(line1.slow, line2.slow);
+
+	lineType emptyclass;				// used to keep classes seperate
+	cout << " slope 1 = " << line1.slow << endl << " slope 2 = " << line2.slow << endl;
+
+
+	emptyclass.perpendicular(line1.slow, line2.slow);
+	emptyclass.intersection(line1.a, line1.b, line1.c, line2.a, line2.b, line2.c);
+
+
+	system("pause");
+	return 0;
+
+}
+
+

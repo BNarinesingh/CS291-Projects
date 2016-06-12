@@ -1,0 +1,1 @@
+Created this program as a way to learn how a binary tree works and how to implement it.
